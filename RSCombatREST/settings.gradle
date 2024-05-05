@@ -1,0 +1,4 @@
+rootProject.name = 'RSCombatREST'
+
+includeFlat 'RSCombatJPA'
+
