@@ -67,9 +67,29 @@ public class combatServiceImpl implements CombatService {
 	}
 
 	@Override
-	public void Delete(int combatId) {
-		// TODO Auto-generated method stub
+	public void delete(int combatId) {
+		if (combatRepo.existsById(combatId)) {
+			combatRepo.deleteById(combatId);
+		}
 		
+	}
+
+	@Override
+	public List<Combat> findByKeyword(String keyword) {
+		
+		List<Combat> entryList = combatRepo.findByCombatStyleContainingOrCategoryContainingOrNameContaining(keyword,keyword,keyword);
+		
+		return entryList;
+	}
+
+	@Override
+	public List<Combat> findByKeyword(String nameKw, String categoryKw) {
+		
+		nameKw = nameKw.equals("")? " ":nameKw;
+		categoryKw = categoryKw.equals("")? " ":categoryKw;
+		
+		List<Combat> entryList = combatRepo.findByNameContainingAndCategoryContaining(nameKw,categoryKw);
+		return entryList;
 	}
 
 

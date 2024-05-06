@@ -10,6 +10,8 @@ public interface CombatService {
 	List<Combat> index();
 	Combat create(Combat combat);
 	Combat update (Combat combat, int combatId);
-	void Delete(int combatId);
+	List<Combat> findByKeyword(String keyword);
+	List<Combat> findByKeyword(String nameKw, String categoryKw);
+	void delete(int combatId);
 	
 }
