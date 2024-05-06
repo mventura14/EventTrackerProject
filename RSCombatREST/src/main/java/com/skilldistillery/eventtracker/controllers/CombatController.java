@@ -26,10 +26,8 @@ public class CombatController {
 		super();
 		this.combatService = combatService;
 	}
-	
-	@GetMapping("ping")
-	public String ping() {return "pong";}
-	
+
+
 	@GetMapping("combats")
 	public List<Combat> index(){
 		
