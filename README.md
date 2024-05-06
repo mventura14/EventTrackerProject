@@ -24,7 +24,7 @@ The EventTrackerProject is an API designed for Runescape players to log combat-r
 | READ    | GET         | /api/combats/{id}             | Retrieve combat entry by id                             |
 | CREATE  | POST        | /api/combats                  | Create a new combat entries                             |
 | UPDATE  | PUT         | /api/combats/{id}             | Update an existing combat entry                         |
-| DELETE  | DELETE      | /api/combats//{id}            | Delete a combat entry                                   |
+| DELETE  | DELETE      | /api/combats/{id}             | Delete a combat entry                                   |
 | READ    | GET         | /api/combats/search/{keyword} | Search a combat entry by name, category or combat style |
 
 ## Technologies Used
