@@ -40,7 +40,6 @@ public class CombatController {
 	public Combat findById(@PathVariable("id") int id) {
 		
 		Combat combatEntry = combatService.findById(id);
-		System.out.println(combatEntry.getTime().getMinute());
 		return combatEntry;
 		
 	}
