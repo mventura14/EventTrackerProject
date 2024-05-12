@@ -25,7 +25,6 @@ export let makeGetRequest = function(url) {
 }
 
 export let makePostRequest = function(obj, url) {
-	console.log(obj)
 	return new Promise(function(resolve) {
 		const xhr = new XMLHttpRequest();
 		xhr.open('POST', url);
@@ -70,7 +69,29 @@ export let makeDeleteRequest = function(url) {
 	});
 }
 
+export let makePutRequest = function(obj, url){
+	return new Promise(function(resolve) {
+		const xhr = new XMLHttpRequest();
+		xhr.open('PUT', url);
 
+		xhr.setRequestHeader("Content-type", "application/json");
+
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4) {
+				if (xhr.status >= 200 && xhr.status < 300) {
+					resolve(JSON.parse(xhr.responseText));
+				} else {
+					console.error(xhr.status + ': ' + xhr.responseText);
+
+
+				}
+			}
+		};
+
+		
+		xhr.send(JSON.stringify(obj));
+	});
+}
 
 
 

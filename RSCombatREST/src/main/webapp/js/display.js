@@ -45,7 +45,7 @@ export	let configAddLogBtn = function() {
 		})
 	}
 
-	let createLogObj = function(form) {
+export	let createLogObj = function(form) {
 		let log = {
 			name: `${form.name.value}`,
 			count: `${form.count.value}`,
@@ -63,8 +63,8 @@ export	let configAddLogBtn = function() {
 
 
 	let formatTime = function(timeValue) {
-		if (timeValue.trim() === "") { return '00' }
-		if (timeValue.trim() < 10) {
+		if (timeValue.trim() === "" || timeValue.trim() < 0) { return '00' }
+		if (timeValue.trim() < 10 && timeValue.trim().length < 2) {
 			return `0${timeValue.trim()}`
 		} else { return timeValue.trim() }
 	}
