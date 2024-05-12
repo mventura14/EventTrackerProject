@@ -30,6 +30,7 @@ let toggleTimer = function() {
 		this.toggle.textContent = 'Stop'
 		this.running = true
 		this.timer = setInterval(() => this.update(this), 1000)
+		document.addLog.submit.disabled = true;
 	}
 }
 
@@ -49,17 +50,17 @@ let updateTimer = function(obj) {
 
 	second += 1;
 
-    if (second >= 60) {
-        second = 0;
-        minute += 1;
-    }
-    if (minute >= 60) {
-        minute = 0;
-        hour += 1;
-    }
-    if (hour >= 24) {
-        hour = 0;
-    }
+	if (second >= 60) {
+		second = 0;
+		minute += 1;
+	}
+	if (minute >= 60) {
+		minute = 0;
+		hour += 1;
+	}
+	if (hour >= 24) {
+		hour = 0;
+	}
 
 	this.second.value = second < 10 ? `0${second}` : second;
 	this.minute.value = minute < 10 ? `0${minute}` : minute;
@@ -76,13 +77,17 @@ let activateEventListeners = function() {
 		this.hour.disabled = true;
 		this.minute.disabled = true;
 		this.second.disabled = true;
-		
+
 	})
 
 	this.resetBtn.addEventListener('click', () => {
-		this.reset();
-		this.hour.disabled = false;
-		this.minute.disabled = false;
-		this.second.disabled = false;
+		console.log(this.running)
+		if (!this.running) {
+			this.reset();
+			this.hour.disabled = false;
+			this.minute.disabled = false;
+			this.second.disabled = false;
+		}
+
 	})
 }

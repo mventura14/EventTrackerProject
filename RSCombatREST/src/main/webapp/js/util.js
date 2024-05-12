@@ -1,11 +1,22 @@
-export let createSelect = function(array) {
-
+export let createSelect = function(array, prop) {
 	let select = document.createElement('select')
-
+	
 	for (let i = 0; i < array.length; i++) {
 		let option = document.createElement('option');
 		option.value = array[i];
 		option.textContent = array[i];
+		
+		console.log(array[i] + " : " + prop)
+		console.log(`${option.value.toLowerCase()} : ${prop.toLowerCase()}`)
+		
+		
+		if(option.value.toLowerCase() === prop.toLowerCase()){
+			console.log('selected')
+			option.selected = true;
+			console.log(option.selected)
+		}
+		
+		console.log(select)
 		select.appendChild(option);
 	}
 

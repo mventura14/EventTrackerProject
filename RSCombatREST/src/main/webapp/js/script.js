@@ -1,6 +1,5 @@
 import { createStopwatch } from './stopwatch.js';
-
-import { updateTable, configAddLogBtn } from './display.js'
+import { displayAllLogs, configAddLogBtn,configSearch } from './display.js'
 import { makeGetRequest, makePostRequest } from "./httpRequest.js";
 import { createTable } from './createTable.js';
 
@@ -8,9 +7,9 @@ import { createTable } from './createTable.js';
 	window.addEventListener('load', function() {
 
 
-		updateTable();
+		displayAllLogs();
 		configAddLogBtn();
-
+		configSearch();
 		let stopwatch = createStopwatch(
 			{	
 				toggle: document.querySelector("#startStopBtn"),
@@ -21,11 +20,11 @@ import { createTable } from './createTable.js';
 				second: document.addLog.second,
 
 			});
-
+		
 		stopwatch.activate();
 	})
 
-
+	
 
 	
 

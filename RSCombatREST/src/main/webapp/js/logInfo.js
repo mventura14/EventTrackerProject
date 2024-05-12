@@ -1,12 +1,13 @@
 import { createSelect, createElement, append } from './util.js'
-import { updateTable, createLogObj } from './display.js'
+import { displayAllLogs, createLogObj } from './display.js'
 import { makeDeleteRequest, makePutRequest } from './httpRequest.js';
 
 export let createDetails = function(obj) {
-	console.log(obj.time)
+	console.log(obj.combatStyle)
 
 
 	let time = obj.time === null ? ['00', '00', '00'] : obj.time.split(':');
+	let combatstyle = obj.combatStyle;
 
 
 
@@ -14,6 +15,9 @@ export let createDetails = function(obj) {
 
 	let container = createElement('div', {
 		id: 'logInfoContainer'
+
+
+
 	});
 
 	let form = createElement('form',
@@ -76,17 +80,16 @@ export let createDetails = function(obj) {
 
 
 	let categories = ['Boss', 'Elite Dungeon', 'Reagular', 'Slayer']
-	let category = createSelect(categories)
+	let category = createSelect(categories, obj.category)
 	category.name = 'category';
-	category.value = obj.value;
 	category.disabled = true;
 	append(form, category)
-
-
+	
+	
+	
 	let combatStyles = ['Magic', 'Melee', 'Necromancy', 'Range']
-	let combatSyle = createSelect(combatStyles)
+	let combatSyle = createSelect(combatStyles, obj.combatStyle)
 	combatSyle.name = 'combatStyle';
-	combatSyle.value = obj.combatSyle;
 	combatSyle.disabled = true;
 	append(form, combatSyle)
 
@@ -94,8 +97,6 @@ export let createDetails = function(obj) {
 	let editBtn = createElement('button', {
 		textContent: 'Edit'
 	})
-
-
 
 
 	let deleteBtn = createElement('button',
@@ -106,7 +107,7 @@ export let createDetails = function(obj) {
 	editBtn.addEventListener('click', (e) => {
 		let element = e.target;
 		if (element.textContent === 'Update') {
-			
+
 			console.log(count)
 
 			let sendObj = createLogObj(form)
@@ -115,11 +116,11 @@ export let createDetails = function(obj) {
 				console.log("gggg" + resp)
 				updateTable();
 				formFillable(form);
-				
+
 			})
 			element.textContent = "Edit";
 			count++;
-			
+
 		} else {
 			console.log(count)
 			element.textContent = "Update";
@@ -133,7 +134,7 @@ export let createDetails = function(obj) {
 		makeDeleteRequest(`api/combats/${obj.id}`)
 			.then((response) => {
 				if (response === true) {
-					updateTable();
+					displayAllLogs();
 					container.remove();
 				}
 			});

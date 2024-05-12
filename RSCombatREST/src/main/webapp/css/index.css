@@ -36,7 +36,7 @@ main {
 .content {
 	flex-grow: 1;
 	display: flex;
-	flex-flow: column;
+	flex-flow: row;
 
 
 	.view {
@@ -45,14 +45,22 @@ main {
 
 	}
 
-	.tableCont {}
+	div:nth-child(2 of div){
+		background-color: aqua;
+	}
+	.tableCont {
+
+		display: flex;
+		flex-flow: column;
+
+	}
 }
 
 .addForm {
 	background-color: rgb(11, 153, 153);
 
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: column;
 
 }
 
@@ -116,6 +124,9 @@ main {
 
 
 table {
+	    border-collapse: collapse;
+	
+	
 	border: 1px solid black;
 
 	th {
@@ -136,7 +147,7 @@ table {
 	tbody {
 
 
-		tr td:nth-child(3 of td) {
+		tr td:nth-child(1 of td) {
 			text-align: center;
 			
 		}

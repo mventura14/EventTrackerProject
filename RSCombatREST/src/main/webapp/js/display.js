@@ -6,9 +6,9 @@ let displayLogs = (objArr) => {
 	tableDiv.innerHTML = '';
 
 	let objTemplate = {
-		createdAt: 'Logged',
-		time: 'Time',
+		//createdAt: 'Logged',
 		count: 'Count',
+		time: 'Time',
 		name: 'Name',
 		category: 'Category',
 		combatStyle: 'Combat Style'
@@ -21,7 +21,7 @@ let displayLogs = (objArr) => {
 }
 
 
-export let updateTable = function() {
+export let displayAllLogs = function() {
 	makeGetRequest(`api/combats`).then(res => {
 		displayLogs(res)
 	})
@@ -38,14 +38,11 @@ export let configAddLogBtn = function() {
 		let obj = createLogObj(submitBtn.parentElement)
 
 		makePostRequest(obj, "api/combats")
-			.then(resp => {
-				console.log(resp);
-				updateTable();
+			.then(() => {
+				displayAllLogs();
 			})
 	})
 }
-
-
 
 export let createLogObj = function(form) {
 	let log = {
@@ -69,4 +66,37 @@ let formatTime = function(timeValue) {
 		return `0${timeValue.trim()}`
 	} else { return timeValue.trim() }
 }
+
+export let configSearch = function() {
+
+	document.search.submit.addEventListener('click', (e) => {
+		e.preventDefault()
+
+		if (e.target.parentElement.keyWord.value.trim() !== "") {
+			makeGetRequest(`api/combats/search/${e.target.parentElement.keyWord.value}`)
+				.then((resp) => {
+					displayLogs(resp);
+					e.target.parentElement.reset()
+				})
+		}
+		else {
+			displayAllLogs();
+		}
+
+
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
