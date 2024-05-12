@@ -1,45 +1,88 @@
 
 
+export let createStopwatch = function(obj) {
+	return {
+
+		toggle: obj.toggle,
+		toggleBtn: obj.toggleBtn,
+		resetBtn: obj.resetBtn,
+		hour: obj.hour,
+		minute: obj.minute,
+		second: obj.second,
+
+		running: false,
+
+		toggleTimer: toggleTimer,
+		reset: resetTimer,
+		update: updateTimer,
+		timer: () => { },
+		activate: activateEventListeners
+	}
+}
+
+let toggleTimer = function() {
+
+	if (this.running) {
+		this.toggle.textContent = 'Start'
+		this.running = false
+		clearInterval(this.timer);
+	} else {
+		this.toggle.textContent = 'Stop'
+		this.running = true
+		this.timer = setInterval(() => this.update(this), 1000)
+	}
+}
 
 
-export let startStopwatch = function() {
-    if (!isRunning) {
-        this.timer = setInterval(updateStopwatch, 1000);
-        isRunning = true;
-        this.toggleBtn.textContent = 'Stop';
-    } else {
-        clearInterval(this.timer);
-        isRunning = false;
-       	this.toggleBtn.textContent = 'Start';
+let resetTimer = function() {
+	this.running = false;
+	this.hour.value = '00';
+	this.minute.value = '00';
+	this.second.value = '00';
+}
+
+let updateTimer = function(obj) {
+
+	let hour = Number(this.hour.value)
+	let minute = Number(this.minute.value)
+	let second = Number(this.second.value)
+
+	second += 1;
+
+    if (second >= 60) {
+        second = 0;
+        minute += 1;
     }
-}
-
-export let updateStopwatch = function() {
-    this.seconds++;
-    if (this.seconds === 60) {
-        this.seconds = 0;
-        this.minutes++;
-        if (this.minutes === 60) {
-            this.minutes = 0;
-            this.hours++;
-        }
+    if (minute >= 60) {
+        minute = 0;
+        hour += 1;
     }
-    displayElement.textContent = formatTime(this.hours) + ":" + formatTime(this.minutes) + ":" + formatTime(this.seconds);
+    if (hour >= 24) {
+        hour = 0;
+    }
+
+	this.second.value = second < 10 ? `0${second}` : second;
+	this.minute.value = minute < 10 ? `0${minute}` : minute;
+	this.hour.value = hour < 10 ? `0${hour}` : hour;
+
+
+
 }
 
-export function resetStopwatch() {
-    clearInterval(this.timer);
-    this.isRunning = false;
-    this.seconds = 0;
-    this.minutes = 0;
-    this.hours = 0;
-    this.displayElement.textContent = '00:00:00';
-   	this.toggleBtn.textContent = 'Start';
-}
+let activateEventListeners = function() {
 
-export function formatTime() {
-    return (this.time < 10) ? "0" + this.time : this.time;
-}
+	this.toggleBtn.addEventListener('click', () => {
+		this.toggleTimer();
+		this.hour.disabled = true;
+		this.minute.disabled = true;
+		this.second.disabled = true;
+		
+	})
 
-document.getElementById('startStopBtn').addEventListener('click', stopwatchObj.startStopwatch);
-document.getElementById('resetBtn').addEventListener('click', stopwatchObj.resetStopwatch);
+	this.resetBtn.addEventListener('click', () => {
+		this.reset();
+		this.hour.disabled = false;
+		this.minute.disabled = false;
+		this.second.disabled = false;
+	})
+}

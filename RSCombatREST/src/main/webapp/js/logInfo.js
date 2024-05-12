@@ -87,7 +87,7 @@ export let createDetails = function(obj) {
 	let combatSyle = createSelect(combatStyles)
 	combatSyle.name = 'combatStyle';
 	combatSyle.value = obj.combatSyle;
-	category.disabled = true;
+	combatSyle.disabled = true;
 	append(form, combatSyle)
 
 
@@ -106,18 +106,24 @@ export let createDetails = function(obj) {
 	editBtn.addEventListener('click', (e) => {
 		let element = e.target;
 		if (element.textContent === 'Update') {
-			console.log('update info')
+			
+			console.log(count)
 
 			let sendObj = createLogObj(form)
 			console.log(sendObj)
 			makePutRequest(sendObj, `api/combats/${obj.id}`).then((resp) => {
 				console.log("gggg" + resp)
 				updateTable();
+				formFillable(form);
+				
 			})
-			element.textContent = "Edit"
+			element.textContent = "Edit";
+			count++;
+			
 		} else {
+			console.log(count)
 			element.textContent = "Update";
-			formFillable(form)
+			formFillable(form);
 		}
 
 	})
