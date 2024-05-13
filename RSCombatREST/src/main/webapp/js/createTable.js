@@ -1,4 +1,4 @@
-import {createDetails} from './logInfo.js';
+import { createDetails } from './logInfo.js';
 
 export let createTable = function(obj, apendTo, propObj) {
 	let table = document.createElement('table');
@@ -26,7 +26,6 @@ let createHead = function(obj) {
 
 let createHeaderRow = function(obj) {
 	let row = document.createElement('tr')
-	console.log(obj)
 	for (let prop in obj) {
 		let th = document.createElement('th');
 		th.textContent = obj[prop];
@@ -52,17 +51,15 @@ let createBodyRow = function(obj, propArr) {
 	let tr = document.createElement('tr')
 
 	tr.addEventListener('click', (e) => {
-		
-		if(document.getElementById('logInfoContainer')){
+
+		if (document.getElementById('logInfoContainer')) {
 			document.getElementById('logInfoContainer').remove();
 		}
 		createDetails(obj)
-		
+
 	})
 
 	for (let i = 0; i < propArr.length; i++) {
-
-
 		let td = document.createElement('td');
 
 		if (propArr[i] === 'createdAt') {
@@ -72,10 +69,12 @@ let createBodyRow = function(obj, propArr) {
 			td.textContent = obj[propArr[i]];
 			tr.appendChild(td);
 		}
-
-
-
 	}
+
+	tr.addEventListener('click', (e) => {
+		let element = e.currentTarget;
+		selectLog(element);
+	})
 
 	return tr;
 }
@@ -94,9 +93,16 @@ function formatDateTime(dateTimeString) {
 
 let displayLogInfo = function() {
 	let side = document.querySelector("aside");
-	
+
 }
 
 
+let selectLog = function(element) {
+	let logs = element.parentElement.children
+	for (let i = 0; i < logs.length; i++) {
+		logs[i].classList.remove('active')
+	}
 
+	element.classList.toggle('active')
+}
 

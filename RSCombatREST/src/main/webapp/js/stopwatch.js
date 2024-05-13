@@ -26,6 +26,7 @@ let toggleTimer = function() {
 		this.toggle.textContent = 'Start'
 		this.running = false
 		clearInterval(this.timer);
+		document.addLog.submit.disabled = false;
 	} else {
 		this.toggle.textContent = 'Stop'
 		this.running = true
@@ -81,7 +82,6 @@ let activateEventListeners = function() {
 	})
 
 	this.resetBtn.addEventListener('click', () => {
-		console.log(this.running)
 		if (!this.running) {
 			this.reset();
 			this.hour.disabled = false;

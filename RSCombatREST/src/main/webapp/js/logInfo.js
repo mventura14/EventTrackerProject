@@ -3,15 +3,9 @@ import { displayAllLogs, createLogObj } from './display.js'
 import { makeDeleteRequest, makePutRequest } from './httpRequest.js';
 
 export let createDetails = function(obj) {
-	console.log(obj.combatStyle)
-
-
 	let time = obj.time === null ? ['00', '00', '00'] : obj.time.split(':');
-	let combatstyle = obj.combatStyle;
 
-
-
-	let element = document.querySelector(".aside");
+	let element = document.getElementById('entryDetails');
 
 	let container = createElement('div', {
 		id: 'logInfoContainer'
@@ -25,14 +19,15 @@ export let createDetails = function(obj) {
 			name: 'updateForm'
 		});
 
-	let name = createElement('input',
-		{
-			name: 'name',
-			value: obj.name,
-			disabled: true
-		});
 
-	append(form, name);
+
+
+	let timeContainer = createElement('div',
+		{
+			class: 'time'
+		})
+	append(form, timeContainer)
+
 
 
 	let hour = createElement('input',
@@ -42,7 +37,9 @@ export let createDetails = function(obj) {
 			value: time[0],
 			disabled: true
 		})
-	append(form, hour)
+	append(timeContainer, hour)
+
+	append(timeContainer, createElement('p', { textContent: ':' }))
 
 	let minute = createElement('input',
 		{
@@ -51,7 +48,9 @@ export let createDetails = function(obj) {
 			value: time[1],
 			disabled: true
 		})
-	append(form, minute)
+	append(timeContainer, minute)
+
+	append(timeContainer, createElement('p', { textContent: ':' }))
 
 	let second = createElement('input',
 		{
@@ -60,61 +59,85 @@ export let createDetails = function(obj) {
 			value: time[2],
 			disabled: true
 		})
-	append(form, second)
+	append(timeContainer, second)
 
-	let gp = createElement('input',
-		{
-			name: 'gp',
-			value: obj.gp,
-			disabled: true
-		});
+
+	let name = createFloatLabelInput('input', 'Name/Activity', {
+		id: 'detailName',
+		name: 'name',
+		value: obj.name,
+		disabled: true
+	})
+	append(form, name);
+
+
+	let gp = createFloatLabelInput('input', 'GP Value', {
+		id: 'detailGP',
+		name: 'gp',
+		type: 'number',
+		value: obj.gp,
+		disabled: true
+
+	});
+
 	form.appendChild(gp)
 
 
-	let count = createElement('input', {
+	let count = createFloatLabelInput('input', 'Kill Count', {
+		id: 'detailKc',
 		name: 'count',
+		type: 'number',
 		value: obj.count,
 		disabled: true
-	})
+
+	});
 	append(form, count)
 
 
-	let categories = ['Boss', 'Elite Dungeon', 'Reagular', 'Slayer']
-	let category = createSelect(categories, obj.category)
-	category.name = 'category';
-	category.disabled = true;
+	let category = createFloatLabelInput('select', 'Category', {
+		id: 'category',
+		option: ['Boss', 'Elite Dungeon', 'Regular', 'Slayer'],
+		name: 'category',
+		disabled: true,
+		value: obj.category,
+
+	});
 	append(form, category)
-	
-	
-	
-	let combatStyles = ['Magic', 'Melee', 'Necromancy', 'Range']
-	let combatSyle = createSelect(combatStyles, obj.combatStyle)
-	combatSyle.name = 'combatStyle';
-	combatSyle.disabled = true;
+
+
+	let combatSyle = createFloatLabelInput('select', 'Category', {
+		id: 'combatStyle',
+		option: ['Magic', 'Melee', 'Necromancy', 'Range'],
+		name: 'combatStyle',
+		disabled: true,
+		value: obj.combatStyle,
+
+	});
 	append(form, combatSyle)
 
 
+
 	let editBtn = createElement('button', {
-		textContent: 'Edit'
+		type: 'submit',
+		textContent: 'Edit',
+		class: 'btn btn-primary'
 	})
 
 
 	let deleteBtn = createElement('button',
 		{
-			textContent: 'Delete'
+			textContent: 'Delete',
+			class: 'btn btn-danger'
 		})
 
 	editBtn.addEventListener('click', (e) => {
+		e.preventDefault();
 		let element = e.target;
 		if (element.textContent === 'Update') {
 
-			console.log(count)
-
 			let sendObj = createLogObj(form)
-			console.log(sendObj)
 			makePutRequest(sendObj, `api/combats/${obj.id}`).then((resp) => {
-				console.log("gggg" + resp)
-				updateTable();
+				displayAllLogs();
 				formFillable(form);
 
 			})
@@ -122,7 +145,7 @@ export let createDetails = function(obj) {
 			count++;
 
 		} else {
-			console.log(count)
+		
 			element.textContent = "Update";
 			formFillable(form);
 		}
@@ -130,7 +153,6 @@ export let createDetails = function(obj) {
 	})
 
 	deleteBtn.addEventListener('click', (e) => {
-		console.log("delete?")
 		makeDeleteRequest(`api/combats/${obj.id}`)
 			.then((response) => {
 				if (response === true) {
@@ -138,25 +160,55 @@ export let createDetails = function(obj) {
 					container.remove();
 				}
 			});
-
-
 	})
 
 
 
 	append(container, form);
-	append(container, editBtn);
+	append(form, editBtn);
 	append(container, deleteBtn);
 	append(element, container);
 
-	let formFillable = function(form) {
 
-		for (let i = 0; i < form.elements.length; i++) {
-			let element = form.elements[i];
+}
+
+let formFillable = function(form) {
+
+	for (let i = 0; i < form.elements.length; i++) {
+		let element = form.elements[i]
+		if (element.name && element.type !== 'button' && element.type !== 'submit') {
 			element.disabled = !element.disabled
 		}
+
 	}
 }
 
+let createFloatLabelInput = function(elementType, labelStr, propObj) {
 
+
+	let div = createElement("div", {
+		class: 'form-floating'
+	})
+
+	if (elementType === 'select') {
+		let select = createElement(elementType, propObj);
+		select.placeholder = '';
+		select.classList.add('form-select')
+		append(div, select)
+	}
+	else {
+		let input = createElement(elementType, propObj);
+		input.placeholder = '';
+		input.classList.add('form-control')
+		append(div, input)
+	}
+
+	let label = createElement('label', {
+		for: propObj.id,
+		textContent: labelStr
+	})
+	append(div, label)
+
+	return div;
+}
 

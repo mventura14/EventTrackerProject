@@ -2,63 +2,78 @@
 	padding: 0;
 	margin: 0;
 	box-sizing: border-box;
+	color: rgb(176, 176, 176);
 }
 
 body {
-	background-color: teal;
+	background-color: hsl(193, 98%, 18%);
 	width: 100%;
 }
 
 main {
 	height: 100svh;
 	width: 100%;
+	/* overflow: hidden; */
 }
 
 .cc {
-	padding: 1em;
+	padding: .2em;
 	height: 100%;
 	width: 100%;
 	display: flex;
 	flex-flow: row nowrap;
-
-
-	&>div:nth-child(1 of div) {
-		background-color: red;
-	}
-}
-
-.aside {
-	max-width: 250px;
-	height: 100%;
-	background-color: black;
 }
 
 .content {
+	height: 100%;
 	flex-grow: 1;
 	display: flex;
 	flex-flow: row;
+	gap: 1.2rem;
 
 
-	.view {
-
-		background-color: azure;
-
+	div:nth-child(1 of div) {
+		flex: 1 1;
+		margin: auto 0;
 	}
 
-	div:nth-child(2 of div){
-		background-color: aqua;
-	}
-	.tableCont {
-
+	>div:nth-child(2 of div) {
 		display: flex;
 		flex-flow: column;
+		height: 100%;
+		overflow: hidden;
+		flex: 4 1;
+		overflow-y: scroll;
+		gap: 1rem;
 
+		>div:nth-child(1 of div) {
+			flex: 0 1;
+			display: flex;
+			flex-flow: column;
+		}
+
+		form {
+			display: flex;
+			flex-flow: row;
+		}
+
+		>div:nth-child(1 of div) {
+
+			flex: 6 1;
+			display: flex;
+			flex-flow: column;
+			/* overflow: hidden; */
+
+
+
+
+		}
 	}
+
+
 }
 
 .addForm {
-	background-color: rgb(11, 153, 153);
-
 	display: flex;
 	flex-flow: column;
 
@@ -68,48 +83,51 @@ main {
 	display: flex;
 	flex-flow: column;
 	min-width: 200px;
-	max-width: 250px;
-
-
-	.time {
-		display: flex;
-		justify-content: center;
-		align-content: baseline;
-
-
-		background-color: aquamarine;
-
-		input {
-			width: 30%;
-			flex: 1 1;
-			border: none;
-			background: transparent;
-		}
-
-		input,
-		p {
-			text-align: center;
-			margin: auto 0;
-			font-size: 3em;
-		}
-
-		p {
-			padding-bottom: 2%;
-		}
-
-
-
-
-	}
+	padding: .2em;
 
 	div {
+		width: 100%;
 		display: flex;
 		flex-flow: row nowrap;
+
 
 		button {
 			flex: 1 1;
 		}
+
+		button:nth-child(1 of button) {
+			background-color: black;
+		}
+
+		button:nth-child(2 of button) {
+			background-color: black;
+		}
 	}
+}
+
+.time {
+	display: flex;
+	justify-content: center;
+	align-content: baseline;
+
+	input {
+		width: 30%;
+		flex: 1 1;
+		border: none;
+		background: transparent;
+	}
+
+	input,
+	p {
+		text-align: center;
+		margin: auto 0;
+		font-size: 1.7em;
+	}
+
+	p {
+		padding-bottom: 2%;
+	}
+
 
 	.no-spin::-webkit-inner-spin-button,
 	.no-spin::-webkit-outer-spin-button {
@@ -119,43 +137,88 @@ main {
 	}
 }
 
-
-
-
-
-table {
-	    border-collapse: collapse;
+#logInfoContainer {
+	display: flex;
+	flex-flow: column;
+	border-top: 2px solid black;
 	
-	
-	border: 1px solid black;
+	form {
 
-	th {
-		text-align: center;
+		display: flex;
+		flex-flow: column;
+		gap: .3rem
 	}
 
-	th,
-	td {
-		padding: .5em;
+	.time {
+		min-width: 200px;
+
+		input,
+		p {
+			font-size: 1.5rem;
+		}
+
+		input {
+			background-color: transparent;
+		}
+
 	}
 
-	tr{
-		border: 1px solid black;
+	button:nth-child(1 of button){
+		margin-bottom: .3rem;
+	}
+}
+
+#search {
+	display: flex;
+	width: 100%;
+
+	input {
+		padding: .5rem;
+		border: none;
 	}
 
-	thead {}
+	button {
+		border: none;
+	}
+}
 
-	tbody {
+.tableCont {
+
+	table,
+	tr {
+		border: 2px solid black;
+	}
+
+	.active {
+		background-color: hsla(0, 0%, 0%, 0.302);
+	}
+
+	table {
+		border-collapse: collapse;
 
 
-		tr td:nth-child(1 of td) {
+		th {
 			text-align: center;
-			
 		}
 
-		tr:hover {
-			background-color: blue;
-			cursor: pointer;
+		th,
+		td {
+			padding: .5em;
 		}
+
+		tbody {
+
+
+			tr td:nth-child(1 of td) {
+				text-align: center;
+
+			}
+
+			tr:hover {
+				background-color: blue;
+				cursor: pointer;
+			}
+		}
+
 	}
-
 }
