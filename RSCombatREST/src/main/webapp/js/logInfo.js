@@ -1,4 +1,4 @@
-import { createSelect, createElement, append } from './util.js'
+import { createElement, append } from './util.js'
 import { displayAllLogs, createLogObj } from './display.js'
 import { makeDeleteRequest, makePutRequest } from './httpRequest.js';
 
@@ -9,9 +9,6 @@ export let createDetails = function(obj) {
 
 	let container = createElement('div', {
 		id: 'logInfoContainer'
-
-
-
 	});
 
 	let form = createElement('form',
@@ -20,14 +17,11 @@ export let createDetails = function(obj) {
 		});
 
 
-
-
 	let timeContainer = createElement('div',
 		{
 			class: 'time'
 		})
 	append(form, timeContainer)
-
 
 
 	let hour = createElement('input',
@@ -62,7 +56,7 @@ export let createDetails = function(obj) {
 	append(timeContainer, second)
 
 
-	let name = createFloatLabelInput('input', 'Name/Activity', {
+	let name = createFloatLabelInput('input', 'Monster/Activity Name', {
 		id: 'detailName',
 		name: 'name',
 		value: obj.name,
@@ -105,7 +99,7 @@ export let createDetails = function(obj) {
 	append(form, category)
 
 
-	let combatSyle = createFloatLabelInput('select', 'Category', {
+	let combatSyle = createFloatLabelInput('select', 'Combat Style Used', {
 		id: 'combatStyle',
 		option: ['Magic', 'Melee', 'Necromancy', 'Range'],
 		name: 'combatStyle',

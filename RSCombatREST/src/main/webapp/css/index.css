@@ -141,7 +141,7 @@ main {
 	display: flex;
 	flex-flow: column;
 	border-top: 2px solid black;
-	
+
 	form {
 
 		display: flex;
@@ -163,7 +163,7 @@ main {
 
 	}
 
-	button:nth-child(1 of button){
+	button:nth-child(1 of button) {
 		margin-bottom: .3rem;
 	}
 }
@@ -195,7 +195,7 @@ main {
 
 	table {
 		border-collapse: collapse;
-
+		text-align: center;
 
 		th {
 			text-align: center;
@@ -209,10 +209,6 @@ main {
 		tbody {
 
 
-			tr td:nth-child(1 of td) {
-				text-align: center;
-
-			}
 
 			tr:hover {
 				background-color: blue;
