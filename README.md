@@ -18,6 +18,10 @@ The EventTrackerProject is an API designed for Runescape players to log combat-r
 
 ## API Routes
 
+http://destumtrials.com:8080/RSCombatREST
+
+http://3.15.134.126:8080/RSCombatREST
+
 | Action  | HTTP Method | URI Template                  | Description                                             |
 |---------|-------------|-------------------------------|---------------------------------------------------------|
 | LIST    | GET         | /api/combats                  | Retrieve all combat entries                             |

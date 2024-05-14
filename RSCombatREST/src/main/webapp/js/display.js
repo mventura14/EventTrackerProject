@@ -11,8 +11,8 @@ let displayLogs = (objArr) => {
 		time: 'Time',
 		name: 'Name',
 		category: 'Category',
-		combatStyle: 'Combat Style'
-		//gp: 'Gold Drop Value',
+		combatStyle: 'Combat Style',
+		gp: 'Gold Drop Value',
 
 	}
 
@@ -40,6 +40,7 @@ export let configAddLogBtn = function() {
 		makePostRequest(obj, "api/combats")
 			.then(() => {
 				displayAllLogs();
+				submitBtn.parentElement.reset();
 			})
 	})
 }

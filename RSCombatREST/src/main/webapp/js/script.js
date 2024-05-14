@@ -1,7 +1,5 @@
 import { createStopwatch } from './stopwatch.js';
-import { displayAllLogs, configAddLogBtn,configSearch } from './display.js'
-import { makeGetRequest, makePostRequest } from "./httpRequest.js";
-import { createTable } from './createTable.js';
+import { displayAllLogs, configAddLogBtn,configSearch } from './display.js';
 
 (() => {
 	window.addEventListener('load', function() {
