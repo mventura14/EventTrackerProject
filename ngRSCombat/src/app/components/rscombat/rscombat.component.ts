@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RSCombatService } from '../../services/rscombat.service';
 import { Combat } from '../../models/combat';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-rscombat',
@@ -17,42 +16,40 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RSCombatComponent implements OnInit {
 
-    combatLogs : Combat[] = [];
+  combatLogs: Combat[] = [];
 
-    rsData: any;
+  wikipage: string = '';
 
   //----------------------------------------------------------------------------------------
   constructor(
     private rscombatService: RSCombatService,
-    private http: HttpClient
   ) { }
   //----------------------------------------------------------------------------------------
 
-
-
   ngOnInit(): void {
     this.reload();
-    this.rs();
+    this.test();
   }
+
   //----------------------------------------------------------------------------------------
-  
-  reload(){
+
+  reload() {
     this.rscombatService.index().subscribe({
-      next:(combatLogs: Combat[])=>{
-          console.log(combatLogs)
+      next: (combatLogs: Combat[]) => {
+        this.combatLogs = combatLogs
+      },
+      error: () => { }
+    })
+  }
+
+  test(){
+    this.rscombatService.test().subscribe({
+      next:(resp)=>{
+        console.log(resp);
+        this.wikipage = resp;
       },
       error:()=>{}
     })
   }
-
-  rs(){
-    this.http.jsonp('https://secure.runescape.com/m=itemdb_rs/bestiary/beastData.json?beastid=89', 'JSONP_CALLBACK')
-  .subscribe(response => {
-    console.log(response);
-  });
-  }
-
-
-
 
 }

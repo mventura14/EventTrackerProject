@@ -14,7 +14,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr ></tr>
+            <tr *ngFor="let log of combatLogs">
+                <td>{{log.count}}</td>
+                <td>{{log.time}}</td>
+                <td>{{log.name}}</td>
+            </tr>
         </tbody>
     </table>
+</div>
+<div>
+   
 </div>

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import { Combat } from '../models/combat';
 
 @Injectable({
@@ -26,20 +26,17 @@ export class RSCombatService {
     )
   }
 
-  getrs(): Observable<any>{
-    return this.http.jsonp('https://secure.runescape.com/m=itemdb_rs/bestiary/beastData.json?beastid=89', 'callback').pipe(
-      map(result => console.log(result)),
-      catchError((err: any) => {
+ test(){
+  let url = 'https://runescape.wiki/api.php?action=parse&format=json&summary=stats&page=Abyssal_lord&formatversion=2'
+  return this.http.get<any>(url).pipe(
+    catchError((err: any) => {
         console.log(err);
         return throwError(
           () => new Error('rscombat.Service.index(): error retrieving combat logs: ' + err)
         );
       })
-    );
-  }
-
-
-
+  )
+ }
 
 
 
